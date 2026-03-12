@@ -11,8 +11,8 @@ export const EmojiTagSchema = z.tuple([
   z.string().regex(/^\w+$/, {
     message: 'shortcode can includes only alpahnumeric characters and underscore',
   }),
-  z.string().url(), // .refine(isImageUrl)
-]);
+  z.string().url(),
+]).rest(z.string()); // Emoji set pointer
 
 export type EmojiTag = z.infer<typeof EmojiTagSchema>;
 
