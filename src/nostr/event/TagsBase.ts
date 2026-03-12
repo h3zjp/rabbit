@@ -6,13 +6,15 @@ import ensureSchema from '@/utils/ensureSchema';
 
 export const TagsSchema = z.array(z.array(z.string()));
 
-export const EmojiTagSchema = z.tuple([
-  z.literal('emoji'),
-  z.string().regex(/^\w+$/, {
-    message: 'shortcode can includes only alpahnumeric characters and underscore',
-  }),
-  z.string().url(),
-]).rest(z.string()); // Emoji set pointer
+export const EmojiTagSchema = z
+  .tuple([
+    z.literal('emoji'),
+    z.string().regex(/^\w+$/, {
+      message: 'shortcode can includes only alpahnumeric characters and underscore',
+    }),
+    z.string().url(),
+  ])
+  .rest(z.string()); // Emoji set pointer
 
 export type EmojiTag = z.infer<typeof EmojiTagSchema>;
 

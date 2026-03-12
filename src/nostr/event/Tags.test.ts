@@ -2,8 +2,7 @@ import assert from 'assert';
 
 import { describe, it } from 'vitest';
 
-import { type MarkedEventTag, markedEventTags } from '@/nostr/event/TextNoteLike';
-import Tags from './Tags';
+import Tags from '@/nostr/event/Tags';
 
 describe('Tags', () => {
   describe('#emojiTags', () => {
@@ -24,8 +23,18 @@ describe('Tags', () => {
 
     it('should return emoji tags with optional emoji set address', () => {
       const emojiTags = [
-        ['emoji', 'foo', 'https://example.com/emoji_foo.png', '30030:fbcc9e7d6182a9d24ab622123f640d700298c43ccc30dc73aaf2a26d485543b8:foo'],
-        ['emoji', 'bar', 'https://example.com/emoji_bar.png', '30030:fbcc9e7d6182a9d24ab622123f640d700298c43ccc30dc73aaf2a26d485543b8:bar'],
+        [
+          'emoji',
+          'foo',
+          'https://example.com/emoji_foo.png',
+          '30030:fbcc9e7d6182a9d24ab622123f640d700298c43ccc30dc73aaf2a26d485543b8:foo',
+        ],
+        [
+          'emoji',
+          'bar',
+          'https://example.com/emoji_bar.png',
+          '30030:fbcc9e7d6182a9d24ab622123f640d700298c43ccc30dc73aaf2a26d485543b8:bar',
+        ],
       ];
       const tags = new Tags([
         // Extra tags
