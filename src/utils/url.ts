@@ -1,3 +1,23 @@
+export const isSafeUrl = (urlString: string): boolean => {
+  try {
+    const url = new URL(urlString);
+
+    return (
+      (url.protocol === 'https:' || url.protocol === 'wss:') &&
+      url.username.length === 0 &&
+      url.password.length === 0 &&
+      !/^localhost|127(\.\d{1,3}){3}|(10|0)(\.\d{1,3}){3}|172\.(1[6-9]|2\d|3[01])(\.\d{1,3}){2}|(192\.168|169\.254)(\.\d{1,3}){2}|\[::1\]|\[(f[cd][0-9a-f]{2}|ffff):[^\]]*\]$/.test(
+        url.hostname,
+      ) &&
+      !/\.(local|internal|localhost|localdomain|nip.io|sslip.io|xip.io|burpcollaborator.net)$/.test(
+        url.hostname,
+      )
+    );
+  } catch {
+    return false;
+  }
+};
+
 export const isAbsoluteUrl = (urlString: string): boolean => {
   try {
     const url = new URL(urlString); // Relative URL will cause a TypeError.

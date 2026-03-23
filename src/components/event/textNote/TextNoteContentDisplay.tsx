@@ -19,7 +19,7 @@ import {
   type ParsedTextNoteResolvedNode,
   type ParsedTextNoteResolved,
 } from '@/nostr/parseTextNote';
-import { isImageUrl, isVideoUrl, isAudioUrl, isWebSocketUrl } from '@/utils/url';
+import { isImageUrl, isVideoUrl, isAudioUrl, isWebSocketUrl, isSafeUrl } from '@/utils/url';
 
 export type TextNoteContentDisplayProps = {
   parsed: ParsedTextNoteResolved;
@@ -51,6 +51,10 @@ const TextNoteContentDisplay = (props: TextNoteContentDisplayProps) => {
         if (item.type === 'URL') {
           const initialHidden = () =>
             !config().showMedia || !props.embedding || (props.initialHidden ?? false);
+
+          if (!isSafeUrl(item.content)) {
+            return item.content;
+          }
 
           if (isImageUrl(item.content)) {
             return <ImageDisplay url={item.content} initialHidden={initialHidden()} />;
