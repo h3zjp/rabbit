@@ -2,12 +2,13 @@ import {
   verifyEvent,
   getEventHash,
   type Event as NostrEvent,
+  type VerifiedEvent,
   type UnsignedEvent,
 } from 'nostr-tools/pure';
 
 import usePool from '@/nostr/usePool';
 
-export const signEvent = async (unsignedEvent: UnsignedEvent): Promise<NostrEvent> => {
+export const signEvent = async (unsignedEvent: UnsignedEvent): Promise<VerifiedEvent> => {
   const id = getEventHash(unsignedEvent);
   const preSignedEvent: UnsignedEvent & { id: string } = { ...unsignedEvent, id };
 
@@ -16,7 +17,7 @@ export const signEvent = async (unsignedEvent: UnsignedEvent): Promise<NostrEven
   }
   const signedEvent = await window.nostr.signEvent(preSignedEvent);
 
-  if (!verifyEvent({ ...signedEvent, id })) {
+  if (!(signedEvent.id === id && verifyEvent(signedEvent))) {
     throw new Error('nostr.signEvent returned invalid data');
   }
 
