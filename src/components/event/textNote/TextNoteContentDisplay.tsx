@@ -12,6 +12,7 @@ import PreviewedLink from '@/components/event/textNote/PreviewedLink';
 import VideoDisplay from '@/components/event/textNote/VideoDisplay';
 import EventLink from '@/components/EventLink';
 import useEmojiPopup from '@/components/useEmojiPopup';
+import SafeLink from '@/components/utils/SafeLink';
 import { createRelaysColumn, createSearchColumn } from '@/core/column';
 import useConfig from '@/core/useConfig';
 import { useRequestCommand } from '@/hooks/useCommandBus';
@@ -53,7 +54,7 @@ const TextNoteContentDisplay = (props: TextNoteContentDisplayProps) => {
             !config().showMedia || !props.embedding || (props.initialHidden ?? false);
 
           if (!isSafeUrl(item.content)) {
-            return item.content;
+            return <SafeLink class="text-link underline" href={item.content} />;
           }
 
           if (isImageUrl(item.content)) {
